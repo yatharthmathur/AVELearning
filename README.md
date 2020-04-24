@@ -1,14 +1,14 @@
 # AVELearning
 
-# Create python virtual environment :
-## python3 -m venv flaskapp
+## Create python virtual environment :
+python3 -m venv flaskapp
 
-# Activate the venv :
-## source flaskapp/bin/activate
+## Activate the venv :
+source flaskapp/bin/activate
 
-# Install dependencies :
-## pip install -r requirements.txt
+## Install dependencies :
+pip install -r requirements.txt
 
-# To run :
-## python myproject.py
+## To run :
+python myproject.py
 
