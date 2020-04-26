@@ -10,11 +10,8 @@
     <head>
         <script>
             function readyFunction(){
-                if(localStorage.aveData != null){
-                    //localStorage.aveData = JSON.parse(localStorage.aveData);
-                    delete localStorage.aveData;
-                }
-                
+                if(localStorage != null)
+                    delete localStorage;
             }
             readyFunction()
         </script>
