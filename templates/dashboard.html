@@ -15,7 +15,10 @@
                     window.location.replace("{{url_for('login')}}");
             }
             readyFunction();
-
+            function signOut(){
+                localStorage.clear();
+                window.location.reload();
+            }
         </script>
     </head>
     <body>
@@ -33,6 +36,7 @@
                 <li><a href="#"><i class="fas fa-calendar-week"></i><span>Events</span></a></li>
                 <li><a href="#"><i class="fas fa-question-circle"></i><span>Results</span></a></li>
                 <li><a href="#"><i class="fas fa-envelope"></i><span>Subjects</span></a></li>
+                <li onclick="signOut()"><a href="#"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a></li>   
 
             </ul>
         </div>
