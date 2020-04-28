@@ -1,0 +1,168 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+*{
+    margin:0 ;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+.sidebar{
+    position: fixed;
+    left:-250;
+    width: 250px;
+    height: 100%;
+    background:#042331;
+    transition: all .5s;
+}
+.sidebar header{
+    font-size: 28px;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    background: #063146;
+    user-select: none;
+}
+.sidebar ul a{
+    display: block;
+    height: 65px;
+    width: 100%;
+    line-height: 65px;
+    font-size: 15px;
+    color: white;
+    padding-left: 30px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid black;
+    border-left: 5px solid red transparent;
+    -webkit-transition:all 0.5s ease ;
+    -moz-transition: all o.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    
+
+}
+
+ ul li:hover a{
+     text-decoration: none;
+     border-left: 5px solid aqua;
+     color:aqua ;
+     background: black;
+ }
+ .sidebar ul a i{
+     margin-right: 16px;
+     font-size: 23px;
+ }
+ .sidebar a span{
+   letter-spacing: 1px;
+   text-transform: uppercase;
+
+ }
+ #check{
+     display: none;
+ }
+
+label #btn, label #cancel{
+    position: absolute;
+    cursor: pointer;
+    background: #042331;
+    border-radius: 3px;
+  ;
+}
+label #btn{
+    left: 40px;
+    top: 25px;
+    font-size: 35px;
+    color:white;
+    padding:6px 12px;
+    -webkit-transition:all 0.5s ease ;
+    -moz-transition: all o.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    transition: all .5s ease ;
+}
+label #cancel{
+    z-index: 1111;
+    left: -196px;
+    top: 17px;
+    font-size: 30px;
+    color: #0a5275;
+    padding: 4px 9px;
+    -webkit-transition:all 0.5s ease ;
+    -moz-transition: all o.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    transition: all .5 ease;
+}
+#check:checked ~ .sidebar{
+    left: 0;
+}
+#check:checked ~ label #btn{
+    left: 250px;
+    opacity: 0;
+    pointer-events:none;
+    visibility: hidden;
+    transition: all .5 ease;
+}
+
+#check:checked ~ label #cancel{
+    left: 195px;
+    opacity: 1;
+    visibility: visible;
+    transition: all .5 ease;
+    
+}
+#check:checked ~ section{
+    margin-left: 250px;
+}
+section {
+    background: url(/static/img/bg.jpg) no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    -webkit-transition:all 0.5s ease ;
+    -moz-transition: all o.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    transition: all .5s ease;
+}
+
+
+@media(max-width:860px){
+    .sidebar{
+        height: auto;
+        width: 70px;
+        left: 0;
+        margin: 40px 0;
+        transition: all .5 ease;
+    }
+    header,#btn,#cancel{
+        display: none;
+        transition: all .5 ease;
+    }
+    span{
+        position: absolute;
+        margin-left:15px;
+        transition: all .5 ease;
+        
+        opacity: 0;
+        visibility: hidden;
+    }
+    .sidebar a i{
+        margin-left: -10px;
+        margin-top: 20px;
+        transition: all .5 ease;
+
+    }
+    a:hover{
+        width: 250px;
+        background: inherit;
+        transition: all .5 ease;
+    }
+    .sidebar a:hover span{
+        opacity: 1;
+        visibility: visible;
+        transition: all .5 ease;
+
+    }
+}

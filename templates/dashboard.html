@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     
        <head>
         <title>Dashboard </title>
         <script>
 
-            /*function readyFunction(){
+            function readyFunction(){
                 
-                if(localStorage.aveData == null || localStorage.aveData.length == 0)
+                if(localStorage == null || localStorage.length == 0)
                     window.location.replace("{{url_for('login')}}");
             }
             readyFunction();
+
             function signOut(){
                 localStorage.clear();
-                window.location.reload();
+                window.location.replace("{{url_for('login')}}");
             }
             
-            */
+            
 
         </script>
 
       </head>
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
 <body>
 <div class="ct" id="t1">
     <div class="ct" id="t2">
@@ -56,7 +57,7 @@
      </div>
      <div class="page" id="p2">
       <div class="loginbox">
-        <img src="school.jpg" class="avatar">
+        <img src="{{url_for('static', filename='img/school.jpg')}}" class="avatar">
         <h1>Register School </h1>
     <form>
             <p>School name</p>
@@ -77,7 +78,7 @@
      </div>  
      <div class="page" id="p3">
       <div class="loginbox">
-        <img src="parent.png" class="avatar">
+        <img src="{{url_for('static', filename='img/parent.png')}}" class="avatar">
         <h1>Register Parent </h1>
     <form>
             <p>Parent name</p>
@@ -98,7 +99,7 @@
      </div>
      <div class="page" id="p4">
       <div class="loginbox">
-        <img src="student.jpg" class="avatar">
+        <img src="{{url_for('static', filename='img/student.jpg')}}" class="avatar">
         <h1>REGISTER STUDENT </h1>
     <form>
             <p>Student name</p>
@@ -119,7 +120,7 @@
      </div>  
      <div class="page" id="p5">
       <div class="loginbox">
-        <img src="event.jpg" class="avatar">
+        <img src="{{url_for('static', filename='img/event.jpg')}}" class="avatar">
         <h1>REGISTER EVENT </h1>
     <form>
             <p>Event name</p>
@@ -142,7 +143,7 @@
 
  <div class="page" id="p6">
   <div class="loginbox">
-    <img src="event.jpg" class="avatar">
+    <img src="{{url_for('static', filename='img/event.jpg')}}" class="avatar">
     <h1>REGISTER EVENT </h1>
 <form>
         <p>Student name</p>
