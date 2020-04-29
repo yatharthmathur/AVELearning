@@ -21,7 +21,8 @@
   }
   #p1 {
     left: 18%;
-    background:url(../img/bge.jpg);
+    background:url(../img/bge.jpg)no-repeat;
+    background-size: 90% 100%;
   }
   
   #p2 {
