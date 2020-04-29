@@ -10,7 +10,7 @@
         </title>
         <script>
             function readyFunction(){
-                if(localStorage.aveData!=null && localStorage.aveData.length!=0)
+                if(localStorage!=null && localStorage.length!=0)
                     window.location.replace("{{url_for('dashboard')}}");
             }
             readyFunction();
