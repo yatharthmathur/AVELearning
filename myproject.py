@@ -4,6 +4,7 @@ from flask import jsonify
 import mysql.connector
 import hashlib
 from flask_cors import CORS, cross_origin
+import datetime
 app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -23,8 +24,29 @@ def admission():
     if request.method == 'GET':
         return render_template('admission.html')
     if request.method == 'POST':
+        data = {}
         print(request.form)
-        return f'Form Submitted, wait for request approval. <br><a href="http://www.avelearning.in/">Click Here</a> to return to Home Page'      
+        for key in request.form.keys():
+            data[key] = request.form[key]
+        cnx = None
+        response = Response()
+        try:
+            cnx = mysql.connector.connect(user=db['user'], password=db['password'], host=db['host'], database=db['database'])
+        except mysql.connector.Error as e:
+            response.status_code = 400
+            response.data = render_template('error.html', error_data=e)
+            return response
+        cursor = cnx.cursor()
+        ts = hash(str(datetime.datetime.now().timestamp()))[:8].upper()
+        query = f"""INSERT INTO new_avedata.admissions
+                (id, first_name, last_name, gender, standard, email, phone, alt_phone, mother_name, father_name, address1, address2, area, schoolID)
+                VALUES('{ts}', '{data['first_name']}', '{data['last_name']}', '{data['gender']}', '{data['standard']}', '{data['email']}',
+                '{data['phone']}', '{data['alt_phone']}', '{data['mother_name']}', '{data['father_name']}', '{data['address1']},',
+                '{data['address2']}', '{data['area']}', {data['schoolID']});"""
+        cursor.execute(query)
+        cnx.commit()
+        print('Record inserted.')
+        return f'<h1>Please note : </h1><h2>Admission Request Code : <mark>{ts}</mark></h2><br><p>Form Submitted, wait for request approval. <a href="http://www.avelearning.in/">Click Here</a> to return to Home Page</p>'      
 
 @app.route('/', methods=['GET', 'POST'])
 @cross_origin()

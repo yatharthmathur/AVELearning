@@ -31,6 +31,7 @@
         "Bhosari", "Chakan", "Charholi Budruk", "Chikhli", "Chimbali", "Chinchwad", "Dapodi", "Dehu Road", "Dighi", "Dudulgaon", "Hinjawadi", "Kalewadi",
         "Kasarwadi", "Maan", "Moshi", "Phugewadi", "Pimple Gurav", "Pimple Nilakh", "Pimple Saudagar", "Pimpri", "Ravet", "Rahatani", "Sangvi", "Talawade",
         "Tathawade", "Thergaon", "Wakad"];
+
         areaList = new Set(areaList);
         $('document').ready(function(){
             var sel = document.getElementById('areaSelect');
@@ -138,13 +139,23 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">School ID</label>
+                                        <div class="input-group-icon">
+                                            <input class="input--style-4" type="text" name="schoolID" required>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
                                 
                         </div>
 
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">Email-Id</label>
+                                    <label class="label">Email ID</label>
                                     <input class="input--style-4" type="email" name="email" required>
                                 </div>
                             </div>
@@ -188,19 +199,7 @@
                             </div>
                             -->
                         </div>
-
-                        
-                        <!--
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">School ID</label>
-                                    <div class="input-group-icon">
-                                        <input class="input--style-4" type="text" name="School ID">
-                                        
-                                    </div>
-                                </div>
-                            </div>
+                            <!--
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Is your school An AVE Learning partner?</label>
@@ -216,7 +215,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        
                     -->
 
 
