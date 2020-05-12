@@ -16,11 +16,28 @@ db = {
 def hash(string):
     return hashlib.md5(string.encode('utf8')).hexdigest()
 
+
+@app.route('/admission', methods=['GET', 'POST'])
+@cross_origin()
+def admission():
+    if request.method == 'GET':
+        return render_template('admission.html')
+    if request.method == 'POST':
+        print(request.form)
+        return f'Form Submitted, wait for request approval. <br><a href="http://www.avelearning.in/">Click Here</a> to return to Home Page'      
+
+@app.route('/', methods=['GET', 'POST'])
+@cross_origin()
+def _dashboard():
+    if request.method == 'GET':
+        return render_template('dashboard.html')
+
 @app.route('/dashboard', methods=['GET', 'POST'])
 @cross_origin()
 def dashboard():
     if request.method == 'GET':
         return render_template('dashboard.html')
+    
 
 @app.route("/login", methods=['GET', 'POST'])
 @cross_origin()
