@@ -22,13 +22,16 @@
    
     <link href="{{url_for('static', filename='css/main.css')}}" rel="stylesheet" media="all">
     <script>
-        const areaList = ["Appa Balwant Chowk", "Aundh", "Balewadi", "Baner", "Bavdhan", "Bhavani Peth", "Blue Ridge Town Pune", "Budhwar Peth",
+        var areaList = ["Appa Balwant Chowk", "Aundh", "Balewadi", "Baner", "Bavdhan", "Bhavani Peth", "Blue Ridge Town Pune", "Budhwar Peth",
         "Chakan", "Dapodi", "Deccan Gymkhana", "Dhankawadi", "Dhayari", "Erandwane", "Fatimanagar", "Ganesh Peth", "Ghorpade Peth", "Guruwar Peth", 
         "Pune", "Hadapsar", "Hinjawadi", "Kalyani Nagar", "Kasba Peth", "Kharadi", "Koregaon Park", "Kothrud", "Maan",
         "Magarpatta", "Mangalwar Peth", "Manjri", "Marunji", "Megapolis Pune", "Mukund Nagar", "Nana Peth", "Nanded City", "Narayan Peth",
         "Navi Peth", "Pashan", "Pune Camp", "Rasta Peth", "Raviwar Peth", "Sadashiv Peth", "Shaniwar Peth", "Shivajinagar", "Shukrawar Peth",
-        "Somwar Peth", "Sopan Baug", "Sus", "Swargate", "Vadgaon Budruk", "Vimannagar", "Vishrantwadi", "Wakad", "Wanwadi", "Warje", "Yerawada"];
-
+        "Somwar Peth", "Sopan Baug", "Sus", "Swargate", "Vadgaon Budruk", "Vimannagar", "Vishrantwadi", "Wanwadi", "Warje", "Yerawada", "Akurdi",
+        "Bhosari", "Chakan", "Charholi Budruk", "Chikhli", "Chimbali", "Chinchwad", "Dapodi", "Dehu Road", "Dighi", "Dudulgaon", "Hinjawadi", "Kalewadi",
+        "Kasarwadi", "Maan", "Moshi", "Phugewadi", "Pimple Gurav", "Pimple Nilakh", "Pimple Saudagar", "Pimpri", "Ravet", "Rahatani", "Sangvi", "Talawade",
+        "Tathawade", "Thergaon", "Wakad"];
+        areaList = new Set(areaList);
         $('document').ready(function(){
             var sel = document.getElementById('areaSelect');
             areaList.forEach(function(area,i){
