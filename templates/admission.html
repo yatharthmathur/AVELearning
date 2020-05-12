@@ -22,7 +22,26 @@
    
     <link href="{{url_for('static', filename='css/main.css')}}" rel="stylesheet" media="all">
     <script>
+        const areaList = ["Appa Balwant Chowk", "Aundh", "Balewadi", "Baner", "Bavdhan", "Bhavani Peth", "Blue Ridge Town Pune", "Budhwar Peth",
+        "Chakan", "Dapodi", "Deccan Gymkhana", "Dhankawadi", "Dhayari", "Erandwane", "Fatimanagar", "Ganesh Peth", "Ghorpade Peth", "Guruwar Peth", 
+        "Pune", "Hadapsar", "Hinjawadi", "Kalyani Nagar", "Kasba Peth", "Kharadi", "Koregaon Park", "Kothrud", "Maan",
+        "Magarpatta", "Mangalwar Peth", "Manjri", "Marunji", "Megapolis Pune", "Mukund Nagar", "Nana Peth", "Nanded City", "Narayan Peth",
+        "Navi Peth", "Pashan", "Pune Camp", "Rasta Peth", "Raviwar Peth", "Sadashiv Peth", "Shaniwar Peth", "Shivajinagar", "Shukrawar Peth",
+        "Somwar Peth", "Sopan Baug", "Sus", "Swargate", "Vadgaon Budruk", "Vimannagar", "Vishrantwadi", "Wakad", "Wanwadi", "Warje", "Yerawada"];
+
         $('document').ready(function(){
+            var sel = document.getElementById('areaSelect');
+            areaList.forEach(function(area,i){
+                var opt = document.createElement('option');
+                // create text node to add to option element (opt)
+                opt.appendChild( document.createTextNode(area) );
+
+                // set value property of opt
+                opt.value = area; 
+
+                // add opt to end of select box (sel)
+                sel.appendChild(opt); 
+            });
             $('#admissionForm').on('submit',function(event){
                 //event.preventDefault();
                 var formData = $(this).serializeArray();
@@ -59,13 +78,13 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">First name</label>
-                                    <input class="input--style-4" type="text" name="first_name">
+                                    <input class="input--style-4" type="text" name="first_name" required>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Last name</label>
-                                    <input class="input--style-4" type="text" name="last_name">
+                                    <input class="input--style-4" type="text" name="last_name" required>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +96,7 @@
                                 <div class="input-group">
                                     <label class="label">Date of Birth </label>
                                     <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" name="birthday">
+                                        <input class="input--style-4 js-datepicker" type="text" name="birthday" required>
                                         <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                     </div>
                                 </div>
@@ -99,19 +118,37 @@
                             </div>
                         </div>
 
-
+                        <div class="row row-space">
+                            
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Standard</label>
+                                        <div class="rs-select2 js-select-simple select--no-search">
+                                                <select name="standard" required>
+                                                    <option disabled="disabled" selected="selected">Choose Standard</option>
+                                                    <option value='Play Group'>Play Group</option>
+                                                    <option value='Nursery'>Nursery</option>
+                                                    <option value='Junior KG'>Junior KG</option>
+                                                    <option value='Senior KG'>Senior KG</option>
+                                                </select>
+                                                <div class="select-dropdown"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                        </div>
 
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Email-Id</label>
-                                    <input class="input--style-4" type="email" name="email">
+                                    <input class="input--style-4" type="email" name="email" required>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Phone Number</label>
-                                    <input class="input--style-4" type="text" name="phone">
+                                    <input class="input--style-4" type="text" name="phone" required>
                                 </div>
                             </div>
                         </div>
@@ -130,8 +167,14 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Mother's Name</label>
-                                    <input class="input--style-4" type="text" name="mother_name">
+                                    <input class="input--style-4" type="text" name="mother_name" required>
                                 </div>
+                            </div>
+                            <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Father's Name</label>
+                                        <input class="input--style-4" type="text" name="father_name" required>
+                                    </div>
                             </div>
                             <!--
                             <div class="col-2">
@@ -143,23 +186,8 @@
                             -->
                         </div>
 
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Father's Name</label>
-                                    <input class="input--style-4" type="text" name="father_name">
-                                </div>
-                            </div>
-                            <!--
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">School Owner</label>
-                                    <input class="input--style-4" type="text" name="last_name">
-                                </div>
-                            </div>
-                            -->
-                        </div>
-
+                        
+                        <!--
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -186,38 +214,52 @@
                                 </div>
                             </div>
                         </div>
-
+                    -->
 
 
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">Residential Address</label>
-                                    <input class="input--style-4" type="text" name="address1">
+                                    <label class="label">Address Line 1</label>
+                                    <input class="input--style-4" type="textbox" name="address1" required>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">Address line 1</label>
+                                    <label class="label">Address Line 2</label>
                                     <input class="input--style-4" type="text" name="address2">
                                 </div>
                             </div>
                         </div>
 
-
+                        <div class="row row-space">
+                            
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Area</label>
+                                        <div class="rs-select2 js-select-simple">
+                                                <select id='areaSelect' name="area" required>
+                                                    <option disabled="disabled" selected="selected">Choose Area</option>
+                                                </select>
+                                                <div class="select-dropdown"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                        </div>
 
 
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">City</label>
-                                    <input class="input--style-4" type="text" name="city">
+                                    <input class="input--style-4" type="text" name="city" value='Pune' disabled>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">State</label>
-                                    <input class="input--style-4" type="text" name="state">
+                                    <input class="input--style-4" type="text" name="state" value='Maharashtra' disabled>
                                 </div>
                             </div>
                         </div>
