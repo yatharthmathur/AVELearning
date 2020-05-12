@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
 
 
@@ -13,14 +13,26 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <title>Student Registration</title>
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="{{url_for('static', filename='js/mdi-font/css/material-design-iconic-font.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{url_for('static', filename='js/font-awesome-4.7/css/font-awesome.min.css')}}" rel="stylesheet" media="all">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <link href="{{url_for('static', filename='js/select2/select2.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{url_for('static', filename='js/datepicker/daterangepicker.css')}}" rel="stylesheet" media="all">
 
    
-    <link href="css/main.css" rel="stylesheet" media="all">
+    <link href="{{url_for('static', filename='css/main.css')}}" rel="stylesheet" media="all">
+    <script>
+        $('document').ready(function(){
+            $('#admissionForm').on('submit',function(event){
+                //event.preventDefault();
+                var formData = $(this).serializeArray();
+                var data = {};
+                for(var i = 0; i<formData.length; i++)
+                    data[formData[i]['name']] = formData[i]['value'];
+                console.log(data);
+            })
+        })
+    </script>
 </head>
 
 
@@ -36,11 +48,11 @@
 
 
 
-                    <h2 class="title">Student Registration Form</h2>
+                    <h2 class="title">Student Admission Form</h2>
                     <h6> * Kindly fill appropriate data without mistakes.<br><br></h6>
 
 
-                    <form method="POST">
+                    <form id='admissionForm' method="POST">
 
 
                         <div class="row row-space">
@@ -75,11 +87,11 @@
                                     <label class="label">Gender</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Male
-                                            <input type="radio" checked="checked" name="gender">
+                                            <input type="radio" checked="checked" name="gender" value="m">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">Female
-                                            <input type="radio" name="gender">
+                                            <input type="radio" name="gender" value='f'>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -107,7 +119,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Alternate Phone Number</label>
-                                    <input class="input--style-4" type="text" name="phone">
+                                    <input class="input--style-4" type="text" name="alt_phone">
                                 </div>
                             </div>
                         </div>
@@ -117,31 +129,35 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">School Name</label>
-                                    <input class="input--style-4" type="text" name="first_name">
+                                    <label class="label">Mother's Name</label>
+                                    <input class="input--style-4" type="text" name="mother_name">
                                 </div>
                             </div>
+                            <!--
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">Pincode</label>
+                                    <label class="label">Parent's Phone Number</label>
                                     <input class="input--style-4" type="text" name="last_name">
                                 </div>
                             </div>
+                            -->
                         </div>
 
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">School Principal</label>
-                                    <input class="input--style-4" type="text" name="first_name">
+                                    <label class="label">Father's Name</label>
+                                    <input class="input--style-4" type="text" name="father_name">
                                 </div>
                             </div>
+                            <!--
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">School Owner</label>
                                     <input class="input--style-4" type="text" name="last_name">
                                 </div>
                             </div>
+                            -->
                         </div>
 
                         <div class="row row-space">
@@ -159,11 +175,11 @@
                                     <label class="label">Is your school An AVE Learning partner?</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">No
-                                            <input type="radio" checked="checked" name="Yes">
+                                            <input type="radio" checked="checked" name="partner" value='no'>
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">Yes
-                                            <input type="radio" name="Yes">
+                                            <input type="radio" name="partner" value='yes'>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -177,13 +193,13 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Residential Address</label>
-                                    <input class="input--style-4" type="text" name="first_name">
+                                    <input class="input--style-4" type="text" name="address1">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Address line 1</label>
-                                    <input class="input--style-4" type="text" name="last_name">
+                                    <input class="input--style-4" type="text" name="address2">
                                 </div>
                             </div>
                         </div>
@@ -195,19 +211,19 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">City</label>
-                                    <input class="input--style-4" type="text" name="first_name">
+                                    <input class="input--style-4" type="text" name="city">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">State</label>
-                                    <input class="input--style-4" type="text" name="last_name">
+                                    <input class="input--style-4" type="text" name="state">
                                 </div>
                             </div>
                         </div>
 
 
-
+                        <!---
                         <div class="input-group">
                             <label class="label">Subject</label>
                             <div class="rs-select2 js-select-simple select--no-search">
@@ -220,7 +236,7 @@
                                 <div class="select-dropdown"></div>
                             </div>
                         </div>
-
+                        ---->
 
                         
                         <div class="p-t-15">
@@ -232,13 +248,13 @@
         </div>
     </div>
 
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="vendor/datepicker/moment.min.js"></script>
-    <script src="vendor/datepicker/daterangepicker.js"></script>
+    <script src="{{url_for('static', filename='js/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/select2/select2.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/datepicker/moment.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/datepicker/daterangepicker.js')}}"></script>
 
    
-    <script src="js/global.js"></script>
+    <script src="{{url_for('static', filename='js/global.js')}}"></script>
 
 </body>
 
