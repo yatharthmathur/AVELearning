@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    loginCheck();
+    function loginCheck(){
+      if(localStorage == null || localStorage.length == 0)
+        window.location.replace("{{url_for('login')}}");
+      
+      else{
+        var url = '{{url_for("isAdmin")}}'
+        var username = localStorage.getItem('username');
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", url+'/'+username, false ); // false for synchronous request
+        xmlHttp.send( null );
+        data = JSON.parse(xmlHttp.responseText);
+        //console.log(data.isAdmin);
+        if(!data.isAdmin)
+          window.location.replace("{{url_for('dashboard')}}")
+      }
+      
+    }
+  </script>
+<title>Admission Requests</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<style> 
+
+body{
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: linear-gradient(#e66465, #9198e5);
+} 
+
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='jumbotron'>
+    <h1>Admission Requests</h1>
+  </div>
+</div>
+<div class='table-responsive'>
+
+
+  <table id="table" class='table table-light table-striped table-hover'>
+    <thead class="thead-light">
+      <tr>
+        <th scope='col'>#</th>
+        <th scope='col'>Request ID</th>
+        <th scope='col'>First name</th>
+        <th scope='col'>Last Name</th>
+        <th scope='col'>Date of Birth</th>
+        <th scope='col'>Gender</th>
+        <th scope='col'>Standard</th>
+        <th scope='col'>School ID</th>
+        <th scope='col'>Email ID</th>
+        <th scope='col'>Phone Number</th>
+        <th scope='col'>Alternate Phone Number</th>
+        <th scope='col'>Mother's Name</th>
+        <th scope='col'>Father's Name</th>
+        <th scope='col'>Address Line 1</th>
+        <th scope='col'>Address Line 2</th>
+        <th scope='col'>Area</th>
+        <th scope='col'>City</th>
+        <th scope='col'>State</th>
+      </tr>
+      
+    </thead>
+    <tbody class='tbody'>
+      {% for (id, first_name, last_name, dob, gender, standard, schoolID, email, phone, alt_phone, mother_name, father_name, address1, address2, area, city, state) in data_list %}
+      <tr>
+          <th scope='row'>{{ loop.index0 + 1 }}</th>
+          <td>{{ id }}</td>
+          <td>{{ first_name }}</td>
+          <td>{{ last_name }}</td>
+          <td>{{ dob }}</td>
+          <td>{{ gender }}</td>
+          <td>{{ standard }}</td>
+          <td>{{ schoolId }}</td>
+          <td>{{ email }}</td>
+          <td>{{ phone }}</td>
+          <td>{{ alt_phone }}</td>
+          <td>{{ mother_name }}</td>
+          <td>{{ father_name }}</td>
+          <td>{{ address1 }}</td>
+          <td>{{ address2 }}</td>
+          <td>{{ area }}</td>
+          <td>{{ city }}</td>
+          <td>{{ state }}</td>
+          
+      </tr>
+      {% endfor %}
+    </tbody>
+  
+  
+  </table>
+</div>
+</body>
+</html>
