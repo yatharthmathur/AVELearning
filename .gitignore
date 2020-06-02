@@ -1,2 +1,4 @@
 .vscode
 flaskapp
+uploaded_data/*
+__pycache__

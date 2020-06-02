@@ -57,6 +57,7 @@ body{
         <th scope='col'>Gender</th>
         <th scope='col'>Standard</th>
         <th scope='col'>School ID</th>
+        <th scope='col'>Transaction ID</th>
         <th scope='col'>Email ID</th>
         <th scope='col'>Phone Number</th>
         <th scope='col'>Alternate Phone Number</th>
@@ -71,7 +72,7 @@ body{
       
     </thead>
     <tbody class='tbody'>
-      {% for (id, first_name, last_name, dob, gender, standard, schoolID, email, phone, alt_phone, mother_name, father_name, address1, address2, area, city, state) in data_list %}
+      {% for (id, first_name, last_name, dob, gender, standard, schoolID, transactionID, email, phone, alt_phone, mother_name, father_name, address1, address2, area, city, state) in data_list %}
       <tr>
           <th scope='row'>{{ loop.index0 + 1 }}</th>
           <td>{{ id }}</td>
@@ -80,7 +81,8 @@ body{
           <td>{{ dob }}</td>
           <td>{{ gender }}</td>
           <td>{{ standard }}</td>
-          <td>{{ schoolId }}</td>
+          <td>{{ schoolID }}</td>
+          <td>{{ transactionID }}</td>
           <td>{{ email }}</td>
           <td>{{ phone }}</td>
           <td>{{ alt_phone }}</td>

@@ -5,10 +5,14 @@ import mysql.connector
 import hashlib
 from flask_cors import CORS, cross_origin
 import datetime
-import json
+import json, os, csv
+from werkzeug.utils import secure_filename
 app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['UPLOAD_FOLDER'] = './uploaded_data/'
+ALLOWED_EXTENSIONS = {'csv'}
+app.config['MAX_CONTENT_PATH'] = 16 * 1024 * 1024
 db = {
     'user':'yatharth',
     'password':'12345',
@@ -17,16 +21,45 @@ db = {
 }
 
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def hash(string):
     return hashlib.md5(string.encode('utf8')).hexdigest()
 
-@app.route('/isAdmin')
+@app.route('/api/isAdmin')
 @cross_origin()
 def isAdmin():
     return ''
 
-@app.route('/isAdmin/<string:username>', methods=['GET', 'POST'])
+@app.route('/student_upload', methods=['GET', 'POST'])
+@cross_origin()
+def student_upload():
+    if request.method == 'GET':
+        return render_template('upload.html')
+    elif request.method == 'POST':
+        print(request.form)
+        print(request.files)
+        f = request.files['file']
+        dirName = request.form['schoolID']
+ 
+        try:
+            # Create target Directory
+            os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], dirName))
+            print("Directory " , dirName ,  " Created ") 
+        except FileExistsError:
+            print("Directory " , dirName ,  " already exists")
+
+        if f and allowed_file(f.filename):
+            filename = secure_filename(f.filename)
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], dirName+'/'+filename))
+            return redirect(url_for('student_upload'))
+        else:
+            return render_template('error.html', error_data='Invalid File Type. Please upload CSV Files only.', prev_page = 'student_upload')
+        return render_template('upload.html')
+
+@app.route('/api/isAdmin/<string:username>', methods=['GET', 'POST'])
 @cross_origin()
 def admin_check(username):
     cnx = None
@@ -35,7 +68,7 @@ def admin_check(username):
     if request.method == 'GET':
         cursor = cnx.cursor()
         #print(username)
-        query = f"SELECT user_name, user_type from user WHERE user_name='{username}' and user_type='admin'"
+        query = f"SELECT user_name from admin WHERE user_name='{username}'"
         cursor.execute(query)
         x = []
         for elem in cursor:
@@ -71,10 +104,10 @@ def admission():
         ts = hash(str(datetime.datetime.now().timestamp()))[:8].upper()
         data['birthday'] = datetime.datetime.strptime(data['birthday'], '%d/%m/%Y').strftime('%Y-%m-%d')
         query = f"""INSERT INTO new_avedata.admissions
-                (id, first_name, last_name, gender, standard, dob, email, phone, alt_phone, mother_name, father_name, address1, address2, area, schoolID)
+                (id, first_name, last_name, gender, standard, dob, email, phone, alt_phone, mother_name, father_name, address1, address2, area, schoolID, transactionID)
                 VALUES('{ts}', '{data['first_name']}', '{data['last_name']}', '{data['gender']}', '{data['standard']}', '{data['birthday']}', '{data['email']}',
                 '{data['phone']}', '{data['alt_phone']}', '{data['mother_name']}', '{data['father_name']}', '{data['address1']},',
-                '{data['address2']}', '{data['area']}', '{data['schoolID']}');"""
+                '{data['address2']}', '{data['area']}', '{data['schoolID']}', '{data['transactionID']}');"""
         cursor.execute(query)
         cnx.commit()
         print('Record inserted.')
@@ -106,20 +139,22 @@ def login():
         usertype = request.form['usertype']
         password_hash = hash(request.form['password'])
         cursor = cnx.cursor()
-        query = f'SELECT user_name, password_hash, user_type FROM user WHERE user_name = "{username}"'
-
+        query = None
+        if usertype == 'admin':
+            query = f'SELECT user_name, password_hash FROM admin WHERE user_name = "{username}"'
+        elif usertype == 'school':
+            query = f'SELECT user_name, password_hash FROM school_user WHERE user_name = "{username}"'
+        elif usertype == 'parent':
+            query = f'SELECT user_name, password_hash FROM parent WHERE user_name = "{username}"'
         cursor.execute(query)
         if cursor.rowcount == 0:
             response.status_code = 400
-            response.data = render_template('error.html', error_data="User doesn't exist.")
+            response.data = render_template('error.html', error_data="User doesn't exist.", prev_page='login')
             
-        for _, phash, utype in cursor:
-            if utype != usertype:
+        for _, phash in cursor:
+            if phash != password_hash:
                 response.status_code = 400
-                response.data = render_template('error.html', error_data="Usertype is incorrect.")
-            elif phash != password_hash:
-                response.status_code = 400
-                response.data = render_template('error.html', error_data="Password did not match.")
+                response.data = render_template('error.html', error_data="Password did not match.", prev_page='login')
             else:
                 response.status_code = 200
                 return redirect(url_for('dashboard'))
@@ -136,17 +171,19 @@ def requests():
     cnx = mysql.connector.connect(user=db['user'], password=db['password'], host=db['host'], database=db['database'])
     #print('Connected', cnx)
     if request.method == 'GET':
-        query = '''SELECT id, first_name, last_name, dob, gender, standard, schoolID, email,phone, alt_phone, mother_name, father_name, address1, address2, area, city, state from admissions'''
+        query = '''SELECT id, first_name, last_name, dob, gender, standard, schoolID, transactionID, email, phone,
+         alt_phone, mother_name, father_name, address1, address2, area, city, state from admissions'''
         response = Response()
         cursor = cnx.cursor()
         cursor.execute(query)
         if cursor.rowcount == 0:
             response.status_code = 400
-            response.data = render_template('error.html', error_data="User doesn't exist.")
+            response.data = render_template('error.html', error_data="User doesn't exist.", prev_page='login')
         
         data_list = []
         for data in cursor:
             data_list.append(data)
+        print(data_list)
         response.status_code = 200
         response.data = render_template('requests.html', data_list = data_list)
         return response

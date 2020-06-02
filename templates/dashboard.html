@@ -9,12 +9,15 @@
 <head>
    <title>Dashboard </title>
    <script>
-      function readyFunction(){
-      
-          if(localStorage == null || localStorage.length == 0)
+    $(document).ready(function(){
+        if(localStorage == null || localStorage.length == 0)
               window.location.replace("{{url_for('login')}}");
-      }
-      readyFunction();
+        else{
+            $('#user_type').text(localStorage['usertype'].toUpperCase());
+            if(localStorage['usertype'] == 'school' || localStorage['usertype'] == 'parent')
+                $('#two').hide();
+        }
+    })
       
       function signOut(){
           localStorage.clear();
@@ -36,7 +39,7 @@
                        
                         <nav class="nav">
                         <ul>
-                           <div class="head"><span class="admin"><span>ADMIN</span></div>
+                           <div class="head"><span class="admin"><span id='user_type'></span></div>
                            <a href="#t1">
                               <li class="icon fa fa-home" id="one"> <span>DASH</span></li>
                            </a>
